@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gianluigi Imbelli | Developer & Blog</title>
+  <meta name="description" content="Blog personale, progetti software e portfolio di Gianluigi Imbelli." />
+
+  <!-- Google Fonts & Font Awesome per icone -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* ==========================================
+       TAVOLOZZA COLORI E VARIABILI (TEMA VIOLA)
+       ========================================== */
+    :root {
+      --bg-dark: #0a0612;
+      --bg-surface: #140d24;
+      --bg-surface-elevated: #1e1338;
+      --border-purple: #2e1e54;
+      --border-purple-hover: #6d28d9;
+      
+      --purple-primary: #8b5cf6;
+      --purple-light: #c084fc;
+      --purple-dark: #6d28d9;
+      --purple-glow: rgba(139, 92, 246, 0.25);
+      
+      --text-main: #f1f0f7;
+      --text-muted: #9e93b8;
+      --text-dim: #6b6187;
+      
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(ellipse at 15% 10%, rgba(109, 40, 217, 0.22) 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 60%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================
+       NAVBAR & SELETTORE LINGUA
+       ========================================== */
+    header {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border-purple);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 6, 18, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--purple-light);
+      box-shadow: 0 0 12px var(--purple-light);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lang-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-purple);
+      color: var(--text-muted);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn:hover {
+      border-color: var(--purple-primary);
+      color: var(--text-main);
+    }
+
+    /* ==========================================
+       HERO SECTION
+       ========================================== */
+    .hero {
+      padding: 65px 0 45px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      color: var(--purple-light);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, #c084fc, #8b5cf6, #d8b4fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-bio {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin-bottom: 32px;
+    }
+
+    /* Pulsanti Call-To-Action */
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple-primary), var(--purple-dark));
+      color: #ffffff;
+      box-shadow: 0 4px 18px var(--purple-glow);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+    }
+
+    .btn-outline {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-purple);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-surface-elevated);
+      border-color: var(--purple-primary);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================
+       SEZIONI COMUNI & CARD GRID
+       ========================================== */
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 45px 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title i {
+      color: var(--purple-primary);
+      font-size: 1.25rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-purple);
+      border-radius: 14px;
+      padding: 24px;
+      transition: all 0.25s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card:hover {
+      border-color: var(--border-purple-hover);
+      box-shadow: 0 8px 24px var(--purple-glow);
+      transform: translateY(-3px);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+      flex-grow: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      margin-bottom: 14px;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .card-link {
+      color: var(--purple-light);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-link:hover {
+      text-decoration: underline;
+    }
+
+    .tag {
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--purple-light);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+
+    /* Banner per visualizzare tutti i repo GitHub */
+    .github-banner {
+      background: linear-gradient(135deg, var(--bg-surface), var(--bg-surface-elevated));
+      border: 1px solid var(--border-purple);
+      border-radius: 14px;
+      padding: 24px;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .github-banner-info h4 {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .github-banner-info p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ==========================================
+       MODAL LETTURA ARTICOLO BLOG
+       ========================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 2, 10, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-purple-hover);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      border-radius: 16px;
+      max-width: 720px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 36px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      color: #fff;
+    }
+
+    .modal-content h2 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .modal-body {
+      margin-top: 24px;
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .modal-body p {
+      margin-bottom: 16px;
+    }
+
+    .modal-body pre {
+      background: var(--bg-dark);
+      padding: 14px;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      margin-bottom: 16px;
+      border: 1px solid var(--border-purple);
+      color: var(--purple-light);
+      overflow-x: auto;
+    }
+
+    /* Card di tipo "post che punta a un repo GitHub" */
+    .card-github-icon {
+      color: var(--purple-light);
+      margin-right: 4px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 80px;
+      padding: 30px 0;
+      border-top: 1px solid var(--border-purple);
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA DI NAVIGAZIONE -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#" class="brand">
+        <span class="brand-dot"></span>
+        <span>Gianluigi Imbelli</span>
+      </a>
+
+      <div class="nav-actions">
+        <!-- Bottone Switch Lingua -->
+        <button id="langToggleBtn" class="lang-btn" onclick="toggleLanguage()">
+          <i class="fa-solid fa-globe"></i>
+          <span id="langBtnLabel">🇬🇧 Switch to English</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="badge">
+        <i class="fa-solid fa-terminal"></i>
+        <span data-i18n="badge">Software Developer & Tech Explorer</span>
+      </div>
+
+      <h1 data-i18n="heroTitle">
+        Costruisco soluzioni digitali & condivido il mio <span class="gradient-text">percorso</span>.
+      </h1>
+
+      <p class="hero-bio" data-i18n="heroBio">
+        Benvenuto nel mio spazio personale. Qui trovi i miei progetti open-source, esperimenti di sviluppo software e guide tecniche scritte nel mio blog.
+      </p>
+
+      <div class="cta-group">
+        <!-- DOWNLOAD CV (collegato ad assets/cv.pdf) -->
+        <a href="assets/cv.pdf" class="btn btn-primary" download="Gianluigi_Imbelli_CV.pdf" id="cvBtn" onclick="handleCvDownload(event)">
+          <i class="fa-solid fa-file-pdf"></i>
+          <span data-i18n="downloadCv">Scarica il mio CV</span>
+        </a>
+
+        <!-- LINK REDIRECT A TUTTI I PROGETTI GITHUB -->
+        <a href="https://github.com/Pizzamarinarasadd?tab=repositories" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-github"></i>
+          <span data-i18n="githubProjects">Tutti i Progetti su GitHub</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- SEZIONE PROGETTI IN EVIDENZA -->
+    <section>
+      <h2 class="section-title">
+        <i class="fa-solid fa-code-fork"></i>
+        <span data-i18n="projectsTitle">Progetti in Evidenza</span>
+      </h2>
+
+      <div class="grid" id="projectsGrid">
+        <!-- Le card dei progetti vengono generate automaticamente da JS, vedi PROJECTS in fondo alla pagina -->
+      </div>
+
+      <!-- Banner Redirect GitHub Repositories -->
+      <div class="github-banner">
+        <div class="github-banner-info">
+          <h4 data-i18n="bannerTitle">Vuoi esplorare l'intero codice sorgente?</h4>
+          <p data-i18n="bannerDesc">Tutti i miei commit, repository pubblici e contributi sono sempre aggiornati su GitHub.</p>
+        </div>
+        <a href="https://github.com/Pizzamarinarasadd?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+          <i class="fa-brands fa-github"></i>
+          <span>@Pizzamarinarasadd</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- SEZIONE BLOG -->
+    <section>
+      <h2 class="section-title">
+        <i class="fa-solid fa-newspaper"></i>
+        <span data-i18n="blogTitle">Articoli del Blog</span>
+      </h2>
+
+      <div class="grid" id="blogGrid">
+        <!-- Le card degli articoli vengono generate automaticamente da JS, vedi POSTS in fondo alla pagina -->
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL LETTURA ARTICOLO COMPLETO -->
+  <div class="modal-overlay" id="blogModal" onclick="closePostOutside(event)">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closePost()">&times;</button>
+      <div class="card-meta" id="modalMeta"></div>
+      <div class="modal-content">
+        <h2 id="modalTitle"></h2>
+        <div class="modal-body" id="modalBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="currentYear"></span> Gianluigi Imbelli (Pizzamarinarasadd). Distribuito con GitHub Pages.</p>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       LOGICA JAVASCRIPT (TRADUZIONE & MODALI)
+       ========================================== -->
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Dizionario testi fissi dell'interfaccia (Italiano / Inglese)
+    const translations = {
+      it: {
+        langBtn: "🇬🇧 English",
+        badge: "Software Developer & Tech Explorer",
+        heroTitle: "Costruisco soluzioni digitali & condivido il mio <span class='gradient-text'>percorso</span>.",
+        heroBio: "Benvenuto nel mio spazio personale. Qui trovi i miei progetti open-source, esperimenti di sviluppo software e guide tecniche scritte nel mio blog.",
+        downloadCv: "Scarica il mio CV",
+        githubProjects: "Tutti i Progetti su GitHub",
+        projectsTitle: "Progetti in Evidenza",
+        bannerTitle: "Vuoi esplorare l'intero codice sorgente?",
+        bannerDesc: "Tutti i miei commit, repository pubblici e contributi sono sempre aggiornati su GitHub.",
+        blogTitle: "Articoli del Blog",
+        readPost: "Leggi articolo",
+        viewOnGithub: "Vedi su GitHub"
+      },
+      en: {
+        langBtn: "🇮🇹 Italiano",
+        badge: "Software Developer & Tech Explorer",
+        heroTitle: "Building digital solutions & sharing my <span class='gradient-text'>journey</span>.",
+        heroBio: "Welcome to my personal corner on the web. Here you'll find my open-source work, software experiments, and technical write-ups.",
+        downloadCv: "Download My Resume",
+        githubProjects: "All GitHub Projects",
+        projectsTitle: "Featured Projects",
+        bannerTitle: "Looking for my full source code?",
+        bannerDesc: "All my commits, public repositories, and contributions are kept up-to-date on GitHub.",
+        blogTitle: "Blog & Articles",
+        readPost: "Read post",
+        viewOnGithub: "View on GitHub"
+      }
+    };
+
+    /* ============================================================================
+       📌 AGGIUNGI QUI I TUOI PROGETTI IN EVIDENZA
+       ============================================================================
+       Per aggiungere un nuovo progetto, copia un intero blocco { ... } qui sotto,
+       incollalo prima della parentesi quadra finale "]" e modifica i valori.
+       - tag/status: le due etichette piccole in alto alla card
+       - title: nome del progetto
+       - desc: descrizione breve, in italiano (it) e inglese (en)
+       - stack: le tecnologie usate (es. "Python / JS")
+       - github: link diretto al repository
+       ============================================================================ */
+    const PROJECTS = [
+      {
+        tag: "Open Source",
+        status: "Updated recently",
+        title: "Project Hub",
+        desc: {
+          it: "Architettura ed utility per semplificare flussi di lavoro, script di automazione e configurazioni modulari.",
+          en: "Architecture & utilities designed to streamline workflows, automation scripts, and modular setups."
+        },
+        stack: "TypeScript",
+        github: "https://github.com/Pizzamarinarasadd"
+      },
+      {
+        tag: "Web App",
+        status: "Active",
+        title: "Minimal Toolkit",
+        desc: {
+          it: "Una suite leggera di strumenti da riga di comando e tool web realizzati per ottimizzare la produttività quotidiana.",
+          en: "A lightweight collection of command-line tools and web utilities built for daily development productivity."
+        },
+        stack: "Python / JS",
+        github: "https://github.com/Pizzamarinarasadd"
+      }
+      // 👉 Copia qui un altro blocco { ... } per aggiungere un nuovo progetto
+    ];
+
+    /* ============================================================================
+       ✍️ AGGIUNGI QUI I TUOI ARTICOLI DEL BLOG
+       ============================================================================
+       Ci sono DUE tipi di post, usa il campo "type":
+
+       1) type: "article"  → un articolo scritto da te per intero.
+          Si apre in una finestra di lettura con il testo completo (campo "content").
+          Puoi usare tag HTML semplici dentro content: <p>, <strong>, <ul><li>, <pre>, <code>.
+
+       2) type: "github"   → un post veloce che punta a un tuo progetto su GitHub.
+          Non serve scrivere un articolo: basta il link del repo in "url".
+          Cliccando sulla card si apre direttamente GitHub in una nuova scheda.
+
+       In entrambi i casi:
+       - id: un numero univoco (non usato da nessun altro post)
+       - date: la data mostrata sulla card
+       - tag: l'etichetta piccola (es. "Dev Tips", "Nuovo Progetto")
+       - it / en: titolo e riassunto breve (snippet) nelle due lingue
+       ============================================================================ */
+    const POSTS = [
+      {
+        id: 1,
+        type: "article",
+        date: "23 Settembre 2026",
+        tag: "Setup & Workflow",
+        it: {
+          title: "Come ho configurato il mio sito su GitHub Pages",
+          snippet: "Guida rapida su deploy, gestione della cache DNS e configurazione di un ambiente performante.",
+          content: `
+            <p>GitHub Pages è uno degli strumenti più agili e convenienti per ospitare un portfolio o un blog personale a costo zero con certificato SSL automatico.</p>
+            <p>Durante il setup, uno dei comportamenti più comuni è riscontrare un ritardo nella propagazione: quando modifichi il file <code>index.html</code> o <code>_config.yml</code>, i server CDN di GitHub impiegano spesso fino a 2-3 minuti per aggiornare la cache.</p>
+            <pre># Verifica rapida con curl per controllare gli header di cache:\ncurl -I https://pizzamarinarasadd.github.io</pre>
+            <p>Con questo singolo file integrato, il rendering avviene in modo istantaneo senza dipendere da build esterne complesse.</p>
+          `
+        },
+        en: {
+          title: "How I Set Up My Site on GitHub Pages",
+          snippet: "A quick-start guide covering deployment, cache propagation, and modern minimalist web setup.",
+          content: `
+            <p>GitHub Pages is one of the fastest and cleanest ways to host a personal blog or developer portfolio for free, complete with automated SSL and CDN delivery.</p>
+            <p>During initial setup, one frequent issue is local and CDN cache latency: pushing updates can take 1-3 minutes before reflections show up on your live domain.</p>
+            <pre># Quick terminal verification for caching headers:\ncurl -I https://pizzamarinarasadd.github.io</pre>
+            <p>By using this standalone single-file layout, everything renders client-side with lightning performance.</p>
+          `
+        }
+      },
+      {
+        id: 2,
+        type: "article",
+        date: "15 Settembre 2026",
+        tag: "Dev Tips",
+        it: {
+          title: "I miei principi per un codice pulito e manutenibile",
+          snippet: "Refactoring, naming conventions e l'importanza di scrivere codice pensando a chi dovrà leggerlo domani.",
+          content: `
+            <p>Scrivere codice che un computer capisce è facile; scrivere codice che gli umani comprendono con naturalezza è la vera sfida dell'ingegneria software.</p>
+            <p>Ecco tre regole d'oro che cerco di seguire in ogni progetto:</p>
+            <ul>
+              <li><strong>Nomi chiari e intenzionali:</strong> evita abbreviazioni criptiche. Una variabile ben nominata elimina la necessità di commenti ridondanti.</li>
+              <li><strong>Funzioni a scopo singolo (SRP):</strong> ogni blocco deve svolgere una e una sola mansione in modo affidabile.</li>
+              <li><strong>Gestione precoce degli errori:</strong> usa le guard clause per uscire subito dai casi anomali e mantenere il corpo principale leggibile.</li>
+            </ul>
+          `
+        },
+        en: {
+          title: "My Core Principles for Clean & Maintainable Code",
+          snippet: "Refactoring, semantic naming, and why writing code for tomorrow's reader matters most.",
+          content: `
+            <p>Writing code that a machine understands is simple; writing code that people can read intuitively is the real challenge of software craft.</p>
+            <p>Here are three ground rules I follow across every project:</p>
+            <ul>
+              <li><strong>Descriptive Naming:</strong> Avoid cryptic abbreviations. Well-named functions and variables remove the need for noisy comments.</li>
+              <li><strong>Single Responsibility:</strong> Every function should do exactly one thing well.</li>
+              <li><strong>Early Returns:</strong> Handle edge conditions up-front with guard clauses so the happy path remains clean and unobstructed.</li>
+            </ul>
+          `
+        }
+      },
+      {
+        id: 3,
+        type: "github",
+        date: "20 Settembre 2026",
+        tag: "Nuovo Progetto",
+        url: "https://github.com/Pizzamarinarasadd",
+        it: {
+          title: "Ho pubblicato un nuovo repository",
+          snippet: "Esempio di post veloce che rimanda direttamente a un progetto su GitHub, senza scrivere un articolo intero."
+        },
+        en: {
+          title: "I published a new repository",
+          snippet: "Example of a quick post linking straight to a GitHub project, no full article needed."
+        }
+      }
+      // 👉 Copia qui un altro blocco { ... } per aggiungere un nuovo post
+      //    (ricordati di cambiare "id" con un numero non ancora usato)
+    ];
+
+    let currentLang = 'it';
+
+    // Genera le card dei progetti a partire da PROJECTS
+    function renderProjects() {
+      const grid = document.getElementById('projectsGrid');
+      grid.innerHTML = PROJECTS.map(p => `
+        <div class="card">
+          <div>
+            <div class="card-meta">
+              <span class="tag">${p.tag}</span>
+              <span>•</span>
+              <span>${p.status}</span>
+            </div>
+            <h3>${p.title}</h3>
+            <p>${p.desc[currentLang]}</p>
+          </div>
+          <div class="card-footer">
+            <span class="tag">${p.stack}</span>
+            <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="card-link">
+              GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Genera le card del blog a partire da POSTS (articoli propri + post-link a GitHub)
+    function renderPosts() {
+      const grid = document.getElementById('blogGrid');
+      const t = translations[currentLang];
+      grid.innerHTML = POSTS.map(post => {
+        const data = post[currentLang];
+        const isGithub = post.type === 'github';
+        const footer = isGithub
+          ? `<a href="${post.url}" target="_blank" rel="noopener noreferrer" class="card-link">
+               <i class="fa-brands fa-github card-github-icon"></i> ${t.viewOnGithub} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+             </a>`
+          : `<button class="card-link" style="background:none;border:none;cursor:pointer;" onclick="openPost(${post.id})">
+               <span>${t.readPost}</span> <i class="fa-solid fa-arrow-right"></i>
+             </button>`;
+
+        return `
+          <div class="card">
+            <div>
+              <div class="card-meta">
+                <span>📅 ${post.date}</span>
+                <span>•</span>
+                <span class="tag">${post.tag}</span>
+              </div>
+              <h3>${data.title}</h3>
+              <p>${data.snippet}</p>
+            </div>
+            <div class="card-footer">${footer}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Funzione Cambio Lingua
+    function toggleLanguage() {
+      currentLang = currentLang === 'it' ? 'en' : 'it';
+      document.documentElement.lang = currentLang;
+
+      // Aggiorna etichetta bottone
+      document.getElementById('langBtnLabel').textContent = translations[currentLang].langBtn;
+
+      // Aggiorna tutti i nodi con attributo data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          el.innerHTML = translations[currentLang][key];
+        }
+      });
+
+      // Rigenera le card (progetti + blog) nella nuova lingua
+      renderProjects();
+      renderPosts();
+    }
+
+    // Modal Articoli Blog (solo per i post di tipo "article")
+    function openPost(id) {
+      const post = POSTS.find(p => p.id === id);
+      if (!post || post.type !== 'article') return;
+
+      const data = post[currentLang];
+      document.getElementById('modalMeta').innerHTML = `<span>📅 ${post.date}</span> <span>•</span> <span class="tag">${post.tag}</span>`;
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalBody').innerHTML = data.content;
+      document.getElementById('blogModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePost() {
+      document.getElementById('blogModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function closePostOutside(event) {
+      if (event.target.id === 'blogModal') {
+        closePost();
+      }
+    }
+
+    // Controllo gentile sul file CV
+    function handleCvDownload(event) {
+      // Se vuoi visualizzare un avviso quando il file PDF non è ancora caricato in assets/cv.pdf:
+      fetch('assets/cv.pdf', { method: 'HEAD' })
+        .then(response => {
+          if (!response.ok) {
+            console.info("Nota: Ricordati di caricare 'cv.pdf' dentro la cartella 'assets/' nel tuo repo per completare il download reale.");
+          }
+        })
+        .catch(() => {});
+    }
+
+    // Render iniziale delle card al caricamento della pagina
+    renderProjects();
+    renderPosts();
+  </script>
+</body>
+</html>
